@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="324pt" height="144pt" viewBox="0 0 324 144" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-03-02T12:08:46.794616</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.8.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 144 
+L 324 144 
+L 324 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 40.5 128.16 
+L 154.636364 128.16 
+L 154.636364 17.28 
+L 40.5 17.28 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2"/>
+   <g id="line2d_1">
+    <path d="M 45.688017 22.32 
+L 47.309272 35.913541 
+L 48.930527 45.299825 
+L 50.551782 54.495101 
+L 52.173037 61.146836 
+L 53.794292 68.037378 
+L 55.415548 72.421155 
+L 57.036803 77.227484 
+L 58.658058 79.441333 
+L 60.279313 81.900833 
+L 63.521823 88.394732 
+L 65.143079 91.776253 
+L 68.385589 96.138859 
+L 71.628099 98.843948 
+L 74.87061 101.328178 
+L 78.11312 103.187699 
+L 84.59814 105.987713 
+L 91.083161 109.359333 
+L 97.568182 113.989026 
+L 104.053202 115.420832 
+L 110.538223 116.534991 
+L 117.023244 119.05484 
+L 123.508264 120.800268 
+L 129.993285 121.995495 
+L 136.478306 123.105559 
+L 142.963326 123.112186 
+L 149.448347 123.12 
+" clip-path="url(#pc2012e0f8a)" style="fill: none; stroke: #1f77b4; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 40.5 128.16 
+L 40.5 17.28 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 154.636364 128.16 
+L 154.636364 17.28 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 40.5 128.16 
+L 154.636364 128.16 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 40.5 17.28 
+L 154.636364 17.28 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <!-- del curve -->
+    <g transform="translate(75.764797 11.28) scale(0.12 -0.12)">
+     <defs>
+      <path id="CMSS17-64" d="M 2611 4416 
+L 2138 4416 
+L 2138 2438 
+C 1939 2603 1613 2756 1254 2756 
+C 672 2756 211 2131 211 1347 
+C 211 562 666 -64 1235 -64 
+C 1677 -64 1971 172 2125 306 
+L 2125 -13 
+L 2611 -13 
+L 2611 4416 
+z
+M 2125 836 
+C 2125 747 2125 653 1926 482 
+C 1798 375 1645 325 1498 325 
+C 1152 325 698 576 698 1340 
+C 698 2134 1210 2368 1562 2368 
+C 1798 2368 1990 2254 2125 2065 
+L 2125 836 
+z
+" transform="scale(0.015625)"/>
+      <path id="CMSS17-65" d="M 2502 1377 
+C 2502 1590 2490 2003 2285 2345 
+C 2061 2713 1696 2816 1421 2816 
+C 755 2816 192 2188 192 1375 
+C 192 582 774 -64 1510 -64 
+C 1798 -64 2150 19 2470 248 
+C 2470 274 2458 414 2451 420 
+C 2451 433 2432 630 2432 656 
+C 2125 407 1773 325 1517 325 
+C 1107 325 666 667 646 1377 
+L 2502 1377 
+z
+M 698 1728 
+C 781 2084 1062 2421 1421 2421 
+C 1517 2421 1965 2421 2080 1728 
+L 698 1728 
+z
+" transform="scale(0.015625)"/>
+      <path id="CMSS17-6c" d="M 947 4416 
+L 474 4416 
+L 474 0 
+L 947 0 
+L 947 4416 
+z
+" transform="scale(0.015625)"/>
+      <path id="CMSS17-63" d="M 2464 2541 
+C 2464 2585 2170 2714 2093 2739 
+C 1882 2816 1613 2816 1542 2816 
+C 710 2816 211 2093 211 1363 
+C 211 595 768 -64 1517 -64 
+C 1946 -64 2253 76 2502 242 
+L 2464 664 
+C 2189 453 1869 337 1523 337 
+C 1024 337 698 774 698 1369 
+C 698 1831 909 2414 1549 2414 
+C 1901 2414 2099 2343 2394 2145 
+L 2464 2541 
+z
+" transform="scale(0.015625)"/>
+      <path id="CMSS17-75" d="M 2618 2739 
+L 2131 2739 
+L 2131 972 
+C 2131 498 1786 306 1421 306 
+C 998 306 960 447 960 709 
+L 960 2739 
+L 474 2739 
+L 474 678 
+C 474 179 646 -64 1088 -64 
+C 1306 -64 1798 -13 2144 306 
+L 2144 0 
+L 2618 0 
+L 2618 2739 
+z
+" transform="scale(0.015625)"/>
+      <path id="CMSS17-72" d="M 954 1363 
+C 954 1965 1395 2368 1958 2368 
+L 1958 2789 
+C 1549 2789 1165 2585 934 2253 
+L 934 2758 
+L 480 2758 
+L 480 0 
+L 954 0 
+L 954 1363 
+z
+" transform="scale(0.015625)"/>
+      <path id="CMSS17-76" d="M 2675 2752 
+L 2176 2752 
+L 1747 1556 
+C 1613 1165 1421 627 1389 352 
+L 1382 352 
+C 1370 468 1318 634 1286 749 
+C 1248 890 1197 1056 1158 1172 
+L 595 2752 
+L 83 2752 
+L 1094 0 
+L 1664 0 
+L 2675 2752 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#CMSS17-64" transform="scale(0.996264)"/>
+     <use xlink:href="#CMSS17-65" transform="translate(48.204943 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-6c" transform="translate(89.843765 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-63" transform="translate(143.253601 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-75" transform="translate(184.892423 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-72" transform="translate(233.097366 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-76" transform="translate(265.007139 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-65" transform="translate(308.00728 0) scale(0.996264)"/>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_7">
+    <path d="M 177.463636 128.16 
+L 291.6 128.16 
+L 291.6 17.28 
+L 177.463636 17.28 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_3"/>
+   <g id="matplotlib.axis_4"/>
+   <g id="line2d_2">
+    <path d="M 182.651653 123.12 
+L 184.272908 113.287274 
+L 185.894163 103.012148 
+L 187.515418 94.245542 
+L 189.136674 87.319656 
+L 190.757929 80.259986 
+L 192.379184 77.200411 
+L 194.000439 72.211808 
+L 195.621694 69.606679 
+L 197.242949 68.368893 
+L 200.48546 60.485602 
+L 202.106715 56.626 
+L 205.349225 51.532642 
+L 208.591736 49.390981 
+L 211.834246 47.934127 
+L 215.076756 45.996696 
+L 221.561777 42.111951 
+L 228.046798 38.931007 
+L 234.531818 36.074945 
+L 241.016839 32.92575 
+L 247.50186 29.69672 
+L 253.98688 28.282243 
+L 260.471901 26.623465 
+L 266.956921 25.850798 
+L 273.441942 25.126459 
+L 279.926963 23.27276 
+L 286.411983 22.32 
+" clip-path="url(#p318833eddd)" style="fill: none; stroke: #1f77b4; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 177.463636 128.16 
+L 177.463636 17.28 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 291.6 128.16 
+L 291.6 17.28 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 177.463636 128.16 
+L 291.6 128.16 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 177.463636 17.28 
+L 291.6 17.28 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_2">
+    <!-- ins curve -->
+    <g transform="translate(213.086117 11.28) scale(0.12 -0.12)">
+     <defs>
+      <path id="CMSS17-69" d="M 979 4183 
+L 442 4183 
+L 442 3648 
+L 979 3648 
+L 979 4183 
+z
+M 947 2739 
+L 474 2739 
+L 474 0 
+L 947 0 
+L 947 2739 
+z
+" transform="scale(0.015625)"/>
+      <path id="CMSS17-6e" d="M 2618 1877 
+C 2618 2283 2522 2816 1798 2816 
+C 1389 2816 1120 2606 941 2389 
+L 941 2758 
+L 474 2758 
+L 474 0 
+L 960 0 
+L 960 1559 
+C 960 1964 1114 2428 1549 2428 
+C 2112 2428 2131 2048 2131 1829 
+L 2131 0 
+L 2618 0 
+L 2618 1877 
+z
+" transform="scale(0.015625)"/>
+      <path id="CMSS17-73" d="M 2061 2627 
+C 1683 2807 1389 2807 1197 2807 
+C 742 2807 198 2648 198 2003 
+C 198 1359 902 1218 1094 1179 
+C 1389 1122 1715 1058 1715 740 
+C 1715 337 1254 337 1171 337 
+C 915 337 563 407 243 638 
+L 166 210 
+C 531 0 883 -64 1178 -64 
+C 1965 -64 2163 416 2163 781 
+C 2163 1094 1984 1305 1862 1401 
+C 1651 1568 1574 1587 1050 1696 
+C 960 1709 646 1779 646 2066 
+C 646 2432 1050 2432 1139 2432 
+C 1555 2432 1811 2303 1984 2208 
+L 2061 2627 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#CMSS17-69" transform="scale(0.996264)"/>
+     <use xlink:href="#CMSS17-6e" transform="translate(22.180723 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-73" transform="translate(70.385666 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-63" transform="translate(137.528321 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-75" transform="translate(179.167143 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-72" transform="translate(227.372086 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-76" transform="translate(259.281859 0) scale(0.996264)"/>
+     <use xlink:href="#CMSS17-65" transform="translate(302.282 0) scale(0.996264)"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pc2012e0f8a">
+   <rect x="40.5" y="17.28" width="114.136364" height="110.88"/>
+  </clipPath>
+  <clipPath id="p318833eddd">
+   <rect x="177.463636" y="17.28" width="114.136364" height="110.88"/>
+  </clipPath>
+ </defs>
+</svg>

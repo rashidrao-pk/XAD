@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShapBPT · hazelnut · Results</title>
+  
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap');
+
+      :root {
+        --bg:       #080c10;
+        --surface:  #0d1117;
+        --surface2: #161b22;
+        --border:   #21262d;
+        --accent:   #00e5ff;
+        --accent2:  #ff3c6e;
+        --good:     #ff3c6e;
+        --bad:      #23d18b;
+        --text:     #e6edf3;
+        --muted:    #7d8590;
+        --glow:     rgba(0,229,255, 0.14);
+      }
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Space Mono', monospace;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+      
+      body::before {
+        content: '';
+        position: fixed; inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      /* ─── Theme switcher bar ─── */
+      .theme-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 24px;
+        background: var(--surface2);
+        border-bottom: 1px solid var(--border);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        flex-wrap: wrap;
+      }
+      .theme-bar > span { margin-right: 4px; flex-shrink: 0; }
+      .theme-btn {
+        padding: 4px 14px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: transparent;
+        color: var(--muted);
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        cursor: pointer;
+        transition: all 0.18s ease;
+      }
+      .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+      .theme-btn.active {
+        background: var(--accent);
+        color: var(--bg);
+        border-color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* ─── Hero ─── */
+      .hero {
+        position: relative;
+        padding: 64px 40px 48px;
+        border-bottom: 1px solid var(--border);
+        overflow: hidden;
+        background: linear-gradient(135deg, #0d1117 0%, #0a0f14 100%);
+      }
+      .hero::after {
+        content: '';
+        position: absolute;
+        top: -120px; right: -120px;
+        width: 480px; height: 480px;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .hero-eyebrow {
+        font-size: 11px; letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--accent); margin-bottom: 18px; opacity: 0.85;
+      }
+      .hero h1 {
+        font-family: 'Syne', sans-serif;
+        font-weight: 500;
+        font-size: clamp(18px, 4vw, 52px);
+        line-height: 1.1; color: var(--text);
+      }
+      .hero h1 em { font-style: normal; color: var(--accent); }
+      .hero-meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 12px; }
+      .tag {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 5px 12px;
+        border: 1px solid var(--border); border-radius: 4px;
+        font-size: 11px; letter-spacing: 0.08em;
+        color: var(--muted); background: var(--surface2);
+      }
+      .tag span { color: var(--text); }
+
+      /* ─── Stats bar ─── */
+      .stats-bar {
+        display: flex;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+      .stat {
+        flex: 1; padding: 20px 24px;
+        border-right: 1px solid var(--border);
+        position: relative;
+      }
+      .stat:last-child { border-right: none; }
+      .stat-value {
+        font-family: 'Syne', sans-serif;
+        font-size: 26px; font-weight:500;
+        color: var(--accent); line-height: 1; margin-bottom: 4px;
+      }
+      .stat-label {
+        font-size: 10px; letter-spacing: 0.2em;
+        text-transform: uppercase; color: var(--muted);
+      }
+      .stat::before {
+        content: ''; position: absolute;
+        top: 0; left: 0; width: 2px; height: 100%;
+        background: var(--accent); opacity: 0.45;
+      }
+
+      /* ─── Content ─── */
+      .content { padding: 32px 24px; max-width: 1800px; margin: 0 auto; }
+
+      .section-head {
+        display: flex; align-items: center; gap: 12px;
+        margin: 40px 0 20px; padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .section-head-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: var(--accent2);
+        box-shadow: 0 0 10px var(--accent2);
+      }
+      .section-head-title {
+        font-family: 'Syne', sans-serif;
+        font-weight: 600; font-size: 13px;
+        letter-spacing: 0.25em; text-transform: uppercase; color: var(--text);
+      }
+      .section-head-count { margin-left: auto; font-size: 11px; color: var(--muted); }
+
+      /* ─── Table ─── */
+      .table-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+      }
+      table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+      thead tr { background: var(--surface2); border-bottom: 2px solid var(--border); }
+      th {
+        padding: 14px 10px;
+        font-size: 10px; font-weight: 700;
+        letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--muted); text-align: center;
+        border-right: 1px solid var(--border);
+        position: sticky; top: 0; z-index: 10;
+        background: var(--surface2); white-space: nowrap;
+      }
+      th:last-child { border-right: none; }
+      tr.img-row td { padding: 0; border-bottom: 1px solid var(--border); }
+      tr.img-row td img {
+        display: block; width: 100%; height: auto; transition: filter 0.2s;
+      }
+      tr.img-row td img:hover { filter: brightness(1.07) contrast(1.04); }
+      tr.caption-row td {
+        padding: 10px 16px;
+        border-bottom: 2px solid var(--border);
+        background: var(--surface2);
+      }
+      .caption-inner {
+        display: flex; align-items: center; gap: 10px; font-size: 12px;
+      }
+      .dot-indicator { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+      .dot-good { background: var(--good);  box-shadow: 0 0 8px var(--good); }
+      .dot-bad  { background: var(--bad);   box-shadow: 0 0 8px var(--bad); }
+      .caption-id    { color: var(--muted); }
+      .caption-score { font-weight: 700; color: var(--text); letter-spacing: 0.05em; }
+      .caption-badge {
+        padding: 2px 8px; border-radius: 3px;
+        font-size: 10px; letter-spacing: 0.15em;
+        text-transform: uppercase; font-weight: 700;
+      }
+      .badge-anom { background: rgba(35,209,139,0.12); color: var(--bad);  border: 1px solid rgba(255,60,110,0.3); }
+      .badge-good { background: rgba(255,60,110,0.15); color: var(--good); border: 1px solid rgba(35,209,139,0.25); }
+
+      /* ─── Footer ─── */
+      footer {
+        margin-top: 60px; padding: 24px 40px;
+        border-top: 1px solid var(--border);
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 11px; color: var(--muted); letter-spacing: 0.08em;
+      }
+
+      /* ─── Scrollbar ─── */
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: var(--bg); }
+      ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+    </style>
+</head>
+<body>
+
+<!-- ═══ THEME BAR ═══ -->
+<div class="theme-bar">
+  <span>Theme</span>
+  <button class="theme-btn  active" data-theme="cyber" onclick="applyTheme('cyber')">cyber</button> <button class="theme-btn" data-theme="dracula" onclick="applyTheme('dracula')">dracula</button> <button class="theme-btn" data-theme="amber" onclick="applyTheme('amber')">amber</button> <button class="theme-btn" data-theme="light" onclick="applyTheme('light')">light</button> <button class="theme-btn" data-theme="forest" onclick="applyTheme('forest')">forest</button>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-eyebrow">ShapBPT · Image Feature Attributions</div>
+  <h1>Explainable Anomaly Detection using <em>Shap-BPT</em></h1>
+  <div class="hero-meta">
+    <div class="tag">DATASET <span>hazelnut</span></div>
+    <div class="tag">EXPERIMENT <span>E6</span></div>
+    <div class="tag">EPOCHS <span>30000</span></div>
+    <div class="tag">MASK <span>blend_2</span></div>
+    <div class="tag">δ_opt <span>0.3670</span></div>
+    <div class="tag">GENERATED <span>2026-03-02 16:21:55</span></div>
+  </div>
+</div>
+
+<!-- ═══ STATS BAR ═══ -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-value">70</div>
+    <div class="stat-label">Total Samples</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">4</div>
+    <div class="stat-label">Anomaly Classes</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">13</div>
+    <div class="stat-label">Methods</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">2</div>
+    <div class="stat-label">Image Types</div>
+  </div>
+</div>
+
+<!-- ═══ CONTENT ═══ -->
+<div class="content">
+
+  <div class="section-head">
+    <div class="section-head-dot"></div>
+    <div class="section-head-title">crack</div>
+    <div class="section-head-count">18 samples</div>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr>
+      <th>Input</th>
+      <th>Recons</th>
+      <th>Anom Map</th>
+      <th>BPT-100</th>
+      <th>BPT-500</th>
+      <th>BPT-1000</th>
+      <th>AA-100</th>
+      <th>AA-500</th>
+      <th>AA-1000</th>
+      <th>LIME-100</th>
+      <th>LIME-500</th>
+      <th>LIME-1000</th>
+      <th>Gt</th>
+    </tr></thead>
+    <tbody>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\0_heatmaps_crack_0_30000_blend_2.png" loading="lazy" alt="crack #0"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\0_IoU_crack_0_30000_blend_2.png" loading="lazy" alt="crack #0"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #000</span>
+            <span class="caption-score">score: 0.5521</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\1_heatmaps_crack_1_30000_blend_2.png" loading="lazy" alt="crack #1"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\1_IoU_crack_1_30000_blend_2.png" loading="lazy" alt="crack #1"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #001</span>
+            <span class="caption-score">score: 0.5225</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\2_heatmaps_crack_2_30000_blend_2.png" loading="lazy" alt="crack #2"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\2_IoU_crack_2_30000_blend_2.png" loading="lazy" alt="crack #2"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-good"></span>
+            <span class="caption-id">crack · #002</span>
+            <span class="caption-score">score: 0.3613</span>
+            <span class="caption-badge badge-good">Normal</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\3_heatmaps_crack_3_30000_blend_2.png" loading="lazy" alt="crack #3"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\3_IoU_crack_3_30000_blend_2.png" loading="lazy" alt="crack #3"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-good"></span>
+            <span class="caption-id">crack · #003</span>
+            <span class="caption-score">score: 0.3421</span>
+            <span class="caption-badge badge-good">Normal</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\4_heatmaps_crack_4_30000_blend_2.png" loading="lazy" alt="crack #4"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\4_IoU_crack_4_30000_blend_2.png" loading="lazy" alt="crack #4"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #004</span>
+            <span class="caption-score">score: 0.4833</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\5_heatmaps_crack_5_30000_blend_2.png" loading="lazy" alt="crack #5"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\5_IoU_crack_5_30000_blend_2.png" loading="lazy" alt="crack #5"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #005</span>
+            <span class="caption-score">score: 0.4415</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\6_heatmaps_crack_6_30000_blend_2.png" loading="lazy" alt="crack #6"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\6_IoU_crack_6_30000_blend_2.png" loading="lazy" alt="crack #6"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #006</span>
+            <span class="caption-score">score: 0.5305</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\7_heatmaps_crack_7_30000_blend_2.png" loading="lazy" alt="crack #7"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\7_IoU_crack_7_30000_blend_2.png" loading="lazy" alt="crack #7"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #007</span>
+            <span class="caption-score">score: 0.6020</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\8_heatmaps_crack_8_30000_blend_2.png" loading="lazy" alt="crack #8"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\8_IoU_crack_8_30000_blend_2.png" loading="lazy" alt="crack #8"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #008</span>
+            <span class="caption-score">score: 0.6773</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\9_heatmaps_crack_9_30000_blend_2.png" loading="lazy" alt="crack #9"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\9_IoU_crack_9_30000_blend_2.png" loading="lazy" alt="crack #9"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #009</span>
+            <span class="caption-score">score: 0.7786</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\10_heatmaps_crack_10_30000_blend_2.png" loading="lazy" alt="crack #10"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\10_IoU_crack_10_30000_blend_2.png" loading="lazy" alt="crack #10"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #010</span>
+            <span class="caption-score">score: 0.6078</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\11_heatmaps_crack_11_30000_blend_2.png" loading="lazy" alt="crack #11"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\11_IoU_crack_11_30000_blend_2.png" loading="lazy" alt="crack #11"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #011</span>
+            <span class="caption-score">score: 0.5770</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\12_heatmaps_crack_12_30000_blend_2.png" loading="lazy" alt="crack #12"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\12_IoU_crack_12_30000_blend_2.png" loading="lazy" alt="crack #12"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #012</span>
+            <span class="caption-score">score: 0.5451</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\13_heatmaps_crack_13_30000_blend_2.png" loading="lazy" alt="crack #13"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\13_IoU_crack_13_30000_blend_2.png" loading="lazy" alt="crack #13"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #013</span>
+            <span class="caption-score">score: 0.4443</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\14_heatmaps_crack_14_30000_blend_2.png" loading="lazy" alt="crack #14"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\14_IoU_crack_14_30000_blend_2.png" loading="lazy" alt="crack #14"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-good"></span>
+            <span class="caption-id">crack · #014</span>
+            <span class="caption-score">score: 0.3388</span>
+            <span class="caption-badge badge-good">Normal</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\15_heatmaps_crack_15_30000_blend_2.png" loading="lazy" alt="crack #15"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\15_IoU_crack_15_30000_blend_2.png" loading="lazy" alt="crack #15"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #015</span>
+            <span class="caption-score">score: 0.4795</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\16_heatmaps_crack_16_30000_blend_2.png" loading="lazy" alt="crack #16"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\16_IoU_crack_16_30000_blend_2.png" loading="lazy" alt="crack #16"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #016</span>
+            <span class="caption-score">score: 0.4433</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\17_heatmaps_crack_17_30000_blend_2.png" loading="lazy" alt="crack #17"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\crack\17_IoU_crack_17_30000_blend_2.png" loading="lazy" alt="crack #17"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">crack · #017</span>
+            <span class="caption-score">score: 0.5587</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="section-head">
+    <div class="section-head-dot"></div>
+    <div class="section-head-title">cut</div>
+    <div class="section-head-count">17 samples</div>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr>
+      <th>Input</th>
+      <th>Recons</th>
+      <th>Anom Map</th>
+      <th>BPT-100</th>
+      <th>BPT-500</th>
+      <th>BPT-1000</th>
+      <th>AA-100</th>
+      <th>AA-500</th>
+      <th>AA-1000</th>
+      <th>LIME-100</th>
+      <th>LIME-500</th>
+      <th>LIME-1000</th>
+      <th>Gt</th>
+    </tr></thead>
+    <tbody>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\0_heatmaps_cut_0_30000_blend_2.png" loading="lazy" alt="cut #0"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\0_IoU_cut_0_30000_blend_2.png" loading="lazy" alt="cut #0"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-good"></span>
+            <span class="caption-id">cut · #000</span>
+            <span class="caption-score">score: 0.3244</span>
+            <span class="caption-badge badge-good">Normal</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\1_heatmaps_cut_1_30000_blend_2.png" loading="lazy" alt="cut #1"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\1_IoU_cut_1_30000_blend_2.png" loading="lazy" alt="cut #1"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #001</span>
+            <span class="caption-score">score: 0.4281</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\2_heatmaps_cut_2_30000_blend_2.png" loading="lazy" alt="cut #2"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\2_IoU_cut_2_30000_blend_2.png" loading="lazy" alt="cut #2"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #002</span>
+            <span class="caption-score">score: 0.4390</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\3_heatmaps_cut_3_30000_blend_2.png" loading="lazy" alt="cut #3"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\3_IoU_cut_3_30000_blend_2.png" loading="lazy" alt="cut #3"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-good"></span>
+            <span class="caption-id">cut · #003</span>
+            <span class="caption-score">score: 0.3543</span>
+            <span class="caption-badge badge-good">Normal</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\4_heatmaps_cut_4_30000_blend_2.png" loading="lazy" alt="cut #4"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\4_IoU_cut_4_30000_blend_2.png" loading="lazy" alt="cut #4"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #004</span>
+            <span class="caption-score">score: 0.3744</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\5_heatmaps_cut_5_30000_blend_2.png" loading="lazy" alt="cut #5"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\5_IoU_cut_5_30000_blend_2.png" loading="lazy" alt="cut #5"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #005</span>
+            <span class="caption-score">score: 0.4422</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\6_heatmaps_cut_6_30000_blend_2.png" loading="lazy" alt="cut #6"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\6_IoU_cut_6_30000_blend_2.png" loading="lazy" alt="cut #6"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #006</span>
+            <span class="caption-score">score: 0.4748</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\7_heatmaps_cut_7_30000_blend_2.png" loading="lazy" alt="cut #7"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\7_IoU_cut_7_30000_blend_2.png" loading="lazy" alt="cut #7"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-good"></span>
+            <span class="caption-id">cut · #007</span>
+            <span class="caption-score">score: 0.3550</span>
+            <span class="caption-badge badge-good">Normal</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\8_heatmaps_cut_8_30000_blend_2.png" loading="lazy" alt="cut #8"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\8_IoU_cut_8_30000_blend_2.png" loading="lazy" alt="cut #8"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #008</span>
+            <span class="caption-score">score: 0.4402</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\9_heatmaps_cut_9_30000_blend_2.png" loading="lazy" alt="cut #9"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\9_IoU_cut_9_30000_blend_2.png" loading="lazy" alt="cut #9"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #009</span>
+            <span class="caption-score">score: 0.4501</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\10_heatmaps_cut_10_30000_blend_2.png" loading="lazy" alt="cut #10"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\10_IoU_cut_10_30000_blend_2.png" loading="lazy" alt="cut #10"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #010</span>
+            <span class="caption-score">score: 0.4411</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\11_heatmaps_cut_11_30000_blend_2.png" loading="lazy" alt="cut #11"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\11_IoU_cut_11_30000_blend_2.png" loading="lazy" alt="cut #11"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #011</span>
+            <span class="caption-score">score: 0.4163</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\12_heatmaps_cut_12_30000_blend_2.png" loading="lazy" alt="cut #12"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\12_IoU_cut_12_30000_blend_2.png" loading="lazy" alt="cut #12"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #012</span>
+            <span class="caption-score">score: 0.4497</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\13_heatmaps_cut_13_30000_blend_2.png" loading="lazy" alt="cut #13"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\13_IoU_cut_13_30000_blend_2.png" loading="lazy" alt="cut #13"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #013</span>
+            <span class="caption-score">score: 0.4993</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\14_heatmaps_cut_14_30000_blend_2.png" loading="lazy" alt="cut #14"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\14_IoU_cut_14_30000_blend_2.png" loading="lazy" alt="cut #14"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-good"></span>
+            <span class="caption-id">cut · #014</span>
+            <span class="caption-score">score: 0.3552</span>
+            <span class="caption-badge badge-good">Normal</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\15_heatmaps_cut_15_30000_blend_2.png" loading="lazy" alt="cut #15"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\15_IoU_cut_15_30000_blend_2.png" loading="lazy" alt="cut #15"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #015</span>
+            <span class="caption-score">score: 0.5264</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\16_heatmaps_cut_16_30000_blend_2.png" loading="lazy" alt="cut #16"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\cut\16_IoU_cut_16_30000_blend_2.png" loading="lazy" alt="cut #16"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">cut · #016</span>
+            <span class="caption-score">score: 0.3878</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="section-head">
+    <div class="section-head-dot"></div>
+    <div class="section-head-title">hole</div>
+    <div class="section-head-count">18 samples</div>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr>
+      <th>Input</th>
+      <th>Recons</th>
+      <th>Anom Map</th>
+      <th>BPT-100</th>
+      <th>BPT-500</th>
+      <th>BPT-1000</th>
+      <th>AA-100</th>
+      <th>AA-500</th>
+      <th>AA-1000</th>
+      <th>LIME-100</th>
+      <th>LIME-500</th>
+      <th>LIME-1000</th>
+      <th>Gt</th>
+    </tr></thead>
+    <tbody>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\0_heatmaps_hole_0_30000_blend_2.png" loading="lazy" alt="hole #0"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\0_IoU_hole_0_30000_blend_2.png" loading="lazy" alt="hole #0"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #000</span>
+            <span class="caption-score">score: 0.4469</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\1_heatmaps_hole_1_30000_blend_2.png" loading="lazy" alt="hole #1"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\1_IoU_hole_1_30000_blend_2.png" loading="lazy" alt="hole #1"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #001</span>
+            <span class="caption-score">score: 0.4368</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\2_heatmaps_hole_2_30000_blend_2.png" loading="lazy" alt="hole #2"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\2_IoU_hole_2_30000_blend_2.png" loading="lazy" alt="hole #2"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #002</span>
+            <span class="caption-score">score: 0.4423</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\3_heatmaps_hole_3_30000_blend_2.png" loading="lazy" alt="hole #3"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\3_IoU_hole_3_30000_blend_2.png" loading="lazy" alt="hole #3"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #003</span>
+            <span class="caption-score">score: 0.4197</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\4_heatmaps_hole_4_30000_blend_2.png" loading="lazy" alt="hole #4"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\4_IoU_hole_4_30000_blend_2.png" loading="lazy" alt="hole #4"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #004</span>
+            <span class="caption-score">score: 0.4693</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\5_heatmaps_hole_5_30000_blend_2.png" loading="lazy" alt="hole #5"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\5_IoU_hole_5_30000_blend_2.png" loading="lazy" alt="hole #5"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #005</span>
+            <span class="caption-score">score: 0.3770</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\6_heatmaps_hole_6_30000_blend_2.png" loading="lazy" alt="hole #6"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\6_IoU_hole_6_30000_blend_2.png" loading="lazy" alt="hole #6"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #006</span>
+            <span class="caption-score">score: 0.5094</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\7_heatmaps_hole_7_30000_blend_2.png" loading="lazy" alt="hole #7"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\7_IoU_hole_7_30000_blend_2.png" loading="lazy" alt="hole #7"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #007</span>
+            <span class="caption-score">score: 0.4589</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\8_heatmaps_hole_8_30000_blend_2.png" loading="lazy" alt="hole #8"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\8_IoU_hole_8_30000_blend_2.png" loading="lazy" alt="hole #8"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #008</span>
+            <span class="caption-score">score: 0.5365</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\9_heatmaps_hole_9_30000_blend_2.png" loading="lazy" alt="hole #9"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\9_IoU_hole_9_30000_blend_2.png" loading="lazy" alt="hole #9"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #009</span>
+            <span class="caption-score">score: 0.4997</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\10_heatmaps_hole_10_30000_blend_2.png" loading="lazy" alt="hole #10"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\10_IoU_hole_10_30000_blend_2.png" loading="lazy" alt="hole #10"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #010</span>
+            <span class="caption-score">score: 0.5555</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\11_heatmaps_hole_11_30000_blend_2.png" loading="lazy" alt="hole #11"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\11_IoU_hole_11_30000_blend_2.png" loading="lazy" alt="hole #11"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #011</span>
+            <span class="caption-score">score: 0.4609</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\12_heatmaps_hole_12_30000_blend_2.png" loading="lazy" alt="hole #12"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\12_IoU_hole_12_30000_blend_2.png" loading="lazy" alt="hole #12"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #012</span>
+            <span class="caption-score">score: 0.4886</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\13_heatmaps_hole_13_30000_blend_2.png" loading="lazy" alt="hole #13"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\13_IoU_hole_13_30000_blend_2.png" loading="lazy" alt="hole #13"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #013</span>
+            <span class="caption-score">score: 0.4742</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\14_heatmaps_hole_14_30000_blend_2.png" loading="lazy" alt="hole #14"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\14_IoU_hole_14_30000_blend_2.png" loading="lazy" alt="hole #14"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #014</span>
+            <span class="caption-score">score: 0.5567</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\15_heatmaps_hole_15_30000_blend_2.png" loading="lazy" alt="hole #15"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\15_IoU_hole_15_30000_blend_2.png" loading="lazy" alt="hole #15"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #015</span>
+            <span class="caption-score">score: 0.5237</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\16_heatmaps_hole_16_30000_blend_2.png" loading="lazy" alt="hole #16"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\16_IoU_hole_16_30000_blend_2.png" loading="lazy" alt="hole #16"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-good"></span>
+            <span class="caption-id">hole · #016</span>
+            <span class="caption-score">score: 0.3550</span>
+            <span class="caption-badge badge-good">Normal</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\17_heatmaps_hole_17_30000_blend_2.png" loading="lazy" alt="hole #17"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\hole\17_IoU_hole_17_30000_blend_2.png" loading="lazy" alt="hole #17"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">hole · #017</span>
+            <span class="caption-score">score: 0.4906</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="section-head">
+    <div class="section-head-dot"></div>
+    <div class="section-head-title">print</div>
+    <div class="section-head-count">17 samples</div>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr>
+      <th>Input</th>
+      <th>Recons</th>
+      <th>Anom Map</th>
+      <th>BPT-100</th>
+      <th>BPT-500</th>
+      <th>BPT-1000</th>
+      <th>AA-100</th>
+      <th>AA-500</th>
+      <th>AA-1000</th>
+      <th>LIME-100</th>
+      <th>LIME-500</th>
+      <th>LIME-1000</th>
+      <th>Gt</th>
+    </tr></thead>
+    <tbody>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\0_heatmaps_print_0_30000_blend_2.png" loading="lazy" alt="print #0"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\0_IoU_print_0_30000_blend_2.png" loading="lazy" alt="print #0"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #000</span>
+            <span class="caption-score">score: 0.7344</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\1_heatmaps_print_1_30000_blend_2.png" loading="lazy" alt="print #1"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\1_IoU_print_1_30000_blend_2.png" loading="lazy" alt="print #1"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #001</span>
+            <span class="caption-score">score: 0.7858</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\2_heatmaps_print_2_30000_blend_2.png" loading="lazy" alt="print #2"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\2_IoU_print_2_30000_blend_2.png" loading="lazy" alt="print #2"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #002</span>
+            <span class="caption-score">score: 0.7778</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\3_heatmaps_print_3_30000_blend_2.png" loading="lazy" alt="print #3"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\3_IoU_print_3_30000_blend_2.png" loading="lazy" alt="print #3"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #003</span>
+            <span class="caption-score">score: 0.7840</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\4_heatmaps_print_4_30000_blend_2.png" loading="lazy" alt="print #4"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\4_IoU_print_4_30000_blend_2.png" loading="lazy" alt="print #4"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #004</span>
+            <span class="caption-score">score: 0.7991</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\5_heatmaps_print_5_30000_blend_2.png" loading="lazy" alt="print #5"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\5_IoU_print_5_30000_blend_2.png" loading="lazy" alt="print #5"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #005</span>
+            <span class="caption-score">score: 0.7972</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\6_heatmaps_print_6_30000_blend_2.png" loading="lazy" alt="print #6"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\6_IoU_print_6_30000_blend_2.png" loading="lazy" alt="print #6"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #006</span>
+            <span class="caption-score">score: 0.8040</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\7_heatmaps_print_7_30000_blend_2.png" loading="lazy" alt="print #7"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\7_IoU_print_7_30000_blend_2.png" loading="lazy" alt="print #7"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #007</span>
+            <span class="caption-score">score: 0.7795</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\8_heatmaps_print_8_30000_blend_2.png" loading="lazy" alt="print #8"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\8_IoU_print_8_30000_blend_2.png" loading="lazy" alt="print #8"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #008</span>
+            <span class="caption-score">score: 0.7429</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\9_heatmaps_print_9_30000_blend_2.png" loading="lazy" alt="print #9"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\9_IoU_print_9_30000_blend_2.png" loading="lazy" alt="print #9"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #009</span>
+            <span class="caption-score">score: 0.6962</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\10_heatmaps_print_10_30000_blend_2.png" loading="lazy" alt="print #10"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\10_IoU_print_10_30000_blend_2.png" loading="lazy" alt="print #10"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #010</span>
+            <span class="caption-score">score: 0.7604</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\11_heatmaps_print_11_30000_blend_2.png" loading="lazy" alt="print #11"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\11_IoU_print_11_30000_blend_2.png" loading="lazy" alt="print #11"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #011</span>
+            <span class="caption-score">score: 0.7222</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\12_heatmaps_print_12_30000_blend_2.png" loading="lazy" alt="print #12"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\12_IoU_print_12_30000_blend_2.png" loading="lazy" alt="print #12"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #012</span>
+            <span class="caption-score">score: 0.7786</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\13_heatmaps_print_13_30000_blend_2.png" loading="lazy" alt="print #13"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\13_IoU_print_13_30000_blend_2.png" loading="lazy" alt="print #13"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #013</span>
+            <span class="caption-score">score: 0.6804</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\14_heatmaps_print_14_30000_blend_2.png" loading="lazy" alt="print #14"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\14_IoU_print_14_30000_blend_2.png" loading="lazy" alt="print #14"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #014</span>
+            <span class="caption-score">score: 0.7260</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\15_heatmaps_print_15_30000_blend_2.png" loading="lazy" alt="print #15"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\15_IoU_print_15_30000_blend_2.png" loading="lazy" alt="print #15"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #015</span>
+            <span class="caption-score">score: 0.7799</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\16_heatmaps_print_16_30000_blend_2.png" loading="lazy" alt="print #16"></td>
+      </tr>
+      <tr class="img-row">
+        <td colspan="13"><img src="e:\Cloud\RashidPHD\Publication_Data\QualITA\notebooks\results\test_results\print\16_IoU_print_16_30000_blend_2.png" loading="lazy" alt="print #16"></td>
+      </tr>
+      <tr class="caption-row">
+        <td colspan="13">
+          <div class="caption-inner">
+            <span class="dot-indicator dot-bad"></span>
+            <span class="caption-id">print · #016</span>
+            <span class="caption-score">score: 0.7075</span>
+            <span class="caption-badge badge-anom">Anomalous</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+</div><!-- /.content -->
+
+<footer>
+  <div>ShapBPT · hazelnut · E6</div>
+  <div>Generated 2026-03-02 16:21:55</div>
+</footer>
+
+
+    <script>
+    const THEMES = {"cyber": {"bg": "#080c10", "surface": "#0d1117", "surface2": "#161b22", "border": "#21262d", "accent": "#00e5ff", "accent2": "#ff3c6e", "good": "#ff3c6e", "bad": "#23d18b", "text": "#e6edf3", "muted": "#7d8590", "hero_bg": "linear-gradient(135deg, #0d1117 0%, #0a0f14 100%)", "glow_rgb": "0,229,255", "scanlines": true}, "dracula": {"bg": "#191823", "surface": "#21202e", "surface2": "#2a2740", "border": "#3d3a55", "accent": "#bd93f9", "accent2": "#50fa7b", "good": "#50fa7b", "bad": "#ff5555", "text": "#f8f8f2", "muted": "#6272a4", "hero_bg": "linear-gradient(135deg, #21202e 0%, #191823 100%)", "glow_rgb": "189,147,249", "scanlines": false}, "amber": {"bg": "#0a0800", "surface": "#120f00", "surface2": "#1c1800", "border": "#2e2600", "accent": "#ffb300", "accent2": "#ff6d00", "good": "#69f0ae", "bad": "#ff6d00", "text": "#fff8e1", "muted": "#8d7b40", "hero_bg": "linear-gradient(135deg, #120f00 0%, #0a0800 100%)", "glow_rgb": "255,179,0", "scanlines": true}, "light": {"bg": "#f5f7fa", "surface": "#ffffff", "surface2": "#eef1f6", "border": "#d0d7e2", "accent": "#4361ee", "accent2": "#f72585", "good": "#06d6a0", "bad": "#ef233c", "text": "#1a1d2e", "muted": "#6b7280", "hero_bg": "linear-gradient(135deg, #eef1f6 0%, #e8ecf4 100%)", "glow_rgb": "67,97,238", "scanlines": false}, "forest": {"bg": "#050f08", "surface": "#0a1a0f", "surface2": "#112218", "border": "#1d3728", "accent": "#39ff14", "accent2": "#00e8c6", "good": "#39ff14", "bad": "#ff4747", "text": "#d4f5dc", "muted": "#5a8a65", "hero_bg": "linear-gradient(135deg, #0a1a0f 0%, #050f08 100%)", "glow_rgb": "57,255,20", "scanlines": false}};
+
+    function applyTheme(name) {
+      const t = THEMES[name];
+      if (!t) return;
+      const s = document.documentElement.style;
+      s.setProperty('--bg',       t.bg);
+      s.setProperty('--surface',  t.surface);
+      s.setProperty('--surface2', t.surface2);
+      s.setProperty('--border',   t.border);
+      s.setProperty('--accent',   t.accent);
+      s.setProperty('--accent2',  t.accent2);
+      s.setProperty('--good',     t.good);
+      s.setProperty('--bad',      t.bad);
+      s.setProperty('--text',     t.text);
+      s.setProperty('--muted',    t.muted);
+      s.setProperty('--glow',     'rgba(' + t.glow_rgb + ', 0.14)');
+      const hero = document.querySelector('.hero');
+      if (hero) hero.style.background = t.hero_bg;
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === name);
+      });
+      try { localStorage.setItem('shapbpt_theme', name); } catch(e) {}
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      let saved = 'cyber';
+      try { saved = localStorage.getItem('shapbpt_theme') || 'cyber'; } catch(e) {}
+      applyTheme(saved);
+    });
+    </script>
+</body>
+</html>
