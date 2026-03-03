@@ -2,6 +2,48 @@
 
 > Venue: The Fifth Conference on System and Service Quality - [**_QualITA_**](https://qualitawg.github.io/), May 5, 2026, Florence, Italy. Qual-ITA (https://qualitawg.github.io/) is  happening with The International Conference on Performance Engineering ([**_ICPE26_**](http://icpe2026.spec.org/)) .
 
+
+<img src="https://img.shields.io/badge/version-v0.0.0-rc0" alt="Version">
+      <a href ="https://github.com/rashidrao-pk/XAD/blob/main/LICENSE">
+        <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT">
+      </a>
+<a href="https://github.com/rashidrao-pk/">
+<img src="https://img.shields.io/github/contributors/rashidrao-pk/XAD" alt="GitHub contributors">
+</a>
+<img src="https://img.shields.io/github/repo-size/rashidrao-pk/XAD" alt="GitHub repo size">
+      <a href="https://github.com/rashidrao-pk/">
+        <img src="https://img.shields.io/github/commit-activity/t/rashidrao-pk/XAD" alt="GitHub commit activity (branch)">
+      </a>
+
+
+<a href="https://github.com/rashidrao-pk/XAD/graphs/contributors">
+<img src="https://img.shields.io/github/contributors/rashidrao-pk/XAD" alt="GitHub contributors">
+</a>
+<a href="https://github.com/rashidrao-pk/XAD/issues?q=is%3Aissue+is%3Aclosed">
+<img src="https://img.shields.io/github/issues-closed/rashidrao-pk/XAD" alt="GitHub closed issues">
+</a>
+<a href="https://github.com/rashidrao-pk/XAD/issues">
+<img src="https://img.shields.io/github/issues/rashidrao-pk/XAD" alt="GitHub issues">
+</a>
+<a href="https://github.com/rashidrao-pk/XAD/pulls?q=is%3Apr+is%3Aclosed">
+<img src="https://img.shields.io/github/issues-pr-closed/rashidrao-pk/XAD" alt="GitHub closed pull requests">
+</a>
+<a href="https://github.com/rashidrao-pk/XAD/pulls">
+<img src="https://img.shields.io/github/issues-pr/rashidrao-pk/XAD" alt="GitHub pull requests">
+</a>
+
+<img src="https://img.shields.io/github/last-commit/rashidrao-pk/XAD" alt="GitHub last commit">
+<a href="https://github.com/rashidrao-pk/XAD/watchers">
+<img src="https://img.shields.io/github/watchers/rashidrao-pk/XAD?style=flat" alt="GitHub watchers">
+</a>
+<a href="https://github.com/rashidrao-pk/XAD/forks">
+<img src="https://img.shields.io/github/forks/rashidrao-pk/XAD?style=flat" alt="GitHub forks">
+</a>
+<a href="https://github.com/rashidrao-pk/XAD/stargazers">
+<img src="https://img.shields.io/github/stars/rashidrao-pk/XAD?style=flat" alt="GitHub Repo stars">
+</a>
+<img src="https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2Frashidrao-pk&label=Visitors&countColor=%23263759&style=flat" alt="Visitors">
+
 ---
 
 This repository provides the experimental results and reproducibility material for eXplainable Anomaly Detection (XAD) using the **_ShapBPT_** Python package.
@@ -9,11 +51,11 @@ This repository provides the experimental results and reproducibility material f
 ---
 
 ShapBPT was recently published at the  
-> 40th AAAI Conference on Artificial Intelligence (AAAI-2026), Singapore, 20–27 January 2026.
+> 40th AAAI Conference on Artificial Intelligence ([AAAI-2026](https://aaai.org/conference/aaai/aaai-26/)), Singapore, 20–27 January 2026.
 
-- **_ShapBPT package_**: https://pypi.org/project/shap-bpt/
 - **_ShapBPT Codes_**: https://github.com/amparore/shap_bpt  
-- **_AAAI-2026_**: https://aaai.org/conference/aaai/aaai-26/
+- **_ShapBPT Python Package_**: https://pypi.org/project/shap-bpt
+- **_ShapBPT ArXiv_**: https://arxiv.org/abs/2602.07047
 
 ---
 
@@ -33,7 +75,7 @@ The repository includes:
 
 ---
 
-## 1. Environment Preparation and Installation
+## 1. Environment Preparation and Installation ⚙️
 
 To run the notebooks and reproduce the experiments, create a dedicated Python environment.
 
@@ -101,9 +143,9 @@ print(shap_bpt.__version__)
 
 ---
 
-### 1.6 Required Dataset
+### 1.6 Required Dataset 🌰
 
-Download the MVTec AD dataset:
+Download the MVTec AD dataset: 
 
 https://www.mvtec.com/company/research/datasets/mvtec-ad
 
@@ -123,15 +165,7 @@ notebooks/datasets/
 
 ---
 
-## 2. Experiments
-
-| Experiment | Dataset | Model   | Description | Precomputed Results |
-|------------|----------|----------|------------|--------------------|
-| E6 | MVTec AD | VAE-GAN | Explainable Anomaly Detection | notebooks/results/HTML_E6_hazelnut_heatmaps_IoU.pdf |
-
----
-
-## 3. Precomputed Results
+## 2. Precomputed Results
 
 | Exp | Dataset | Model | PDF | CSV |
 |-----|----------|--------|-------------------------------|-----------------------------------------------|
@@ -150,7 +184,37 @@ The published results were generated and validated on the following systems:
 
 ---
 
+## Acknowledgments 🙏
+We gratefully acknowledge the following contributions and resources that supported this work:
 
-## Citation
+### 💠 Funding
+This work received funding from the European Union’s Horizon research and innovation programme Chips JU under Grant Agreement No. 101139769, as part of the DistriMuSe Project (HORIZON-KDT-JU-2023-2-RIA).
+The Joint Undertaking receives support from the European Union and the participating member states.
 
-Coming soon.
+
+### 🧠 Models & Pretrained Weights
+We thank the developers of the model architectures and pretrained weights used in our experiments, including:
+
+
+### 🗄️ Datasets
+We acknowledge the dataset curators whose work made this project possible:
+
+- [MVTec](https://www.mvtec.com/company/research/datasets/mvtec-ad)
+
+### Keywords 🔍
+Anomaly detection · Variational Autoencoder · eXplainable AI · Software quality · Smart Industries
+
+
+## Citation 📃
+
+Coming soon...
+
+## Contributors
+
+<a href="https://github.com/rashidrao-pk/XAD/graphs/contributors">
+  <img src="http://contributors.nn.ci/api?repo=rashidrao-pk/XAD" alt="" />
+</a>
+<br>
+
+> [!NOTE]
+> Contributions to improve the completeness of this list are greatly appreciated. If you come across any overlooked papers, please **feel free to [*create pull requests*](https://github.com/rashidrao-pk/XAD/pulls), [*open issues*](https://github.com/rashidrao-pk/XAD/issues) or contact me via [*email*](mailto:muhammad.rashid@unito.it)**. Your participation is crucial to making this repository even better.
