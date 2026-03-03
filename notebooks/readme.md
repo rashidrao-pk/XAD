@@ -19,7 +19,7 @@ pip install -r requirements.txt
 To explain the true driver behind image anomaly detection system, MVTec dataset ise used and can be found at official link of [here at MVTec](https://www.mvtec.com/company/research/datasets/mvtec-ad).
 To replicate the results presented in suplementry material, MVTec dataset needs to be downloaded at `notebooks\dataset\MVTec`
 ## Model setup :
- - A `VAE-GAN model` is trained on $30000$ epochs which is uploaded at [`THIS ANONYMOUS LINK/E6_XAD/models`](https://anonymous.4open.science/r/shapbpt_experiments) and make sure to download it and place it into the [`models/`](/notebooks/E6_XAD/models/) folder which is used as $BlackBox-model$.
+ - A `VAE-GAN model` is trained on $30000$ epochs which is uploaded at [`https://github.com/rashidrao-pk/anomaly_detection_trust_case_study`](https://github.com/rashidrao-pk/anomaly_detection_trust_case_study) and make sure to download it and place it into the [`models/`](/notebooks/E6_XAD/models/) folder which is used as $BlackBox-model$.
  - **NOTE** `hazelnut_VAE_GAN_30000` folder should contain 11 files.
     - hazelnut_VAE_GAN_30000.csv
     - hazelnut_VAE_GAN_30000_decoder.data-00000-of-00001
@@ -51,10 +51,7 @@ To replicate the results presented in suplementry material, MVTec dataset needs 
 ## Notebooks & functions
 - [`models.py`](notebooks/XAD/main/models.py) contains the codes for VAE-GAN $model$ used to train and test the trained model.
 - [`utils.py`](notebooks/XAD/utils.py) contains all the functions required to run [`N1_XAD_HAZELNUT.ipynb`](notebooks/XAD/N1_XAD_HAZELNUT.ipynb) notebook.
-- Subfigures presented in `Figure 11` can be produced using saved using hyperparameter `plot_selected_results` as `True` in `Cell#51` and it will use `Cell#53`, and `Cell#54` to save the subfigures at `results\hazelnut\paper_figure` which were togathered to produce `Figure 11`.
-- Full test can be run by using boolean parameter `run_full_set` in `Cell#55` which will use `Cell#56` and will save computed explanations in [test_results](results/test_results/) and [CSV file](results/csv/testresults_hazelnut_30000_9_BPT.csv).
-
-- `Boxplots` from `Figure 12` can be produced using [`N2_DrawPlot_from_CSV.ipynb`](N2_DrawPlot_from_CSV.ipynb) notebook and either a [`precomputed csv file`](precomputed_csv/testresults_hazelnut_30000_9_BPT.csv) or by computing [`CSV`](results/hazelnut/testresults_hazelnut_30000_9_BPT.csv) again computed by [`N1_XAD_HAZELNUT.ipynb`](notebooks/XAD/N1_XAD_HAZELNUT.ipynb) notebook.
+- `Boxplots` can be produced using [`N2_DrawPlot_from_CSV.ipynb`](N2_DrawPlot_from_CSV.ipynb) notebook and either a [`precomputed csv file`](precomputed_csv/testresults_hazelnut_30000_9_BPT.csv) or by computing [`CSV`](results/hazelnut/testresults_hazelnut_30000_9_BPT.csv) again computed by [`N1_XAD_HAZELNUT.ipynb`](notebooks/XAD/N1_XAD_HAZELNUT.ipynb) notebook.
 - All heatmaps and IoU figures can be generted by running [`N3_Create_HTMLs`](N3_Create_HTMLs.ipynb) which loads the both type images saved at `results/hazelnut/test_results`.
 - Two HTMLs presenting all visual results are saved as [`HTML_Heatmaps`](results/imgs_hazelnut_heatmaps.html) and [`HTML_IoU`](results/imgs_hazelnut_heatmaps.html).
 

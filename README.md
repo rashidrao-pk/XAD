@@ -1,9 +1,12 @@
 # ShapBPT in Perspective: A Consolidated Review and an eXplainable Anomaly Detection Case Study
 
-@ The Fifth Conference on System and Service Quality - [QualITA](https://qualitawg.github.io/), May 5, 2026, Florence, Italy. (https://qualitawg.github.io/) happening in The International Conference on Performance Engineering (ICPE26) .
+> Venue: The Fifth Conference on System and Service Quality - [**_QualITA_**](https://qualitawg.github.io/), May 5, 2026, Florence, Italy. Qual-ITA (https://qualitawg.github.io/) is  happening with The International Conference on Performance Engineering ([**_ICPE26_**](http://icpe2026.spec.org/)) .
+
+---
 
 This repository provides the experimental results and reproducibility material for eXplainable Anomaly Detection (XAD) using the **_ShapBPT_** Python package.
 
+---
 
 ShapBPT was recently published at the  
 > 40th AAAI Conference on Artificial Intelligence (AAAI-2026), Singapore, 20–27 January 2026.
@@ -29,13 +32,13 @@ The repository includes:
 
 ---
 
-# 1. Environment Preparation and Installation
+## 1. Environment Preparation and Installation
 
 To run the notebooks and reproduce the experiments, create a dedicated Python environment.
 
 ---
 
-## 1.1 Create Conda Environment
+### 1.1 Create Conda Environment
 
 ```bash
 conda create -n XAD python=3.9.18
@@ -43,7 +46,7 @@ conda activate XAD
 ```
 ---
 
-## 1.2 Clone This Repository
+### 1.2 Clone This Repository
 
 ```bash
 git clone https://github.com/rashidrao-pk/XAD
@@ -52,7 +55,7 @@ pip install -r requirements.txt
 ```
 ---
 
-## 1.3 Install ShapBPT
+### 1.3 Install ShapBPT
 
 Option 1 — Install from PyPI (Recommended)
 
@@ -72,7 +75,7 @@ Note: ShapBPT contains a Cython module, so compilation is required when installi
 
 ---
 
-## 1.4 LaTeX Support (Optional but Recommended)
+### 1.4 LaTeX Support (Optional but Recommended)
 
 Some plots use LaTeX rendering.
 
@@ -88,7 +91,7 @@ Install MikTeX (or equivalent LaTeX distribution).
 
 ---
 
-## 1.5 Verify Installation
+### 1.5 Verify Installation
 
 ```python
 import shap_bpt
@@ -97,7 +100,7 @@ print(shap_bpt.__version__)
 
 ---
 
-## 1.6 Required Dataset
+### 1.6 Required Dataset
 
 Download the MVTec AD dataset:
 
@@ -119,7 +122,7 @@ notebooks/datasets/
 
 ---
 
-# 2. Experiments
+## 2. Experiments
 
 | Experiment | Dataset | Model   | Description | Precomputed Results |
 |------------|----------|----------|------------|--------------------|
@@ -127,7 +130,7 @@ notebooks/datasets/
 
 ---
 
-# 3. Precomputed Results
+## 3. Precomputed Results
 
 | Exp | Dataset | Model | PDF | CSV |
 |-----|----------|--------|-------------------------------|-----------------------------------------------|
@@ -135,7 +138,7 @@ notebooks/datasets/
 
 ---
 
-# 4. Hardware Validation
+## 4. Hardware Validation
 
 The published results were generated and validated on the following systems:
 
@@ -147,8 +150,6 @@ The published results were generated and validated on the following systems:
 ---
 
 
----
-
-# Citation
+## Citation
 
 Coming soon.
