@@ -11,8 +11,9 @@ This repository provides the experimental results and reproducibility material f
 ShapBPT was recently published at the  
 > 40th AAAI Conference on Artificial Intelligence (AAAI-2026), Singapore, 20–27 January 2026.
 
-**ShapBPT package**: https://github.com/amparore/shap_bpt  
-**AAAI-2026**: https://aaai.org/conference/aaai/aaai-26/
+- **_ShapBPT package_**: https://pypi.org/project/shap-bpt/
+- **_ShapBPT Codes_**: https://github.com/amparore/shap_bpt  
+- **_AAAI-2026_**: https://aaai.org/conference/aaai/aaai-26/
 
 ---
 
@@ -57,13 +58,13 @@ pip install -r requirements.txt
 
 ### 1.3 Install ShapBPT
 
-Option 1 — Install from PyPI (Recommended)
+Option 1 — Install from PyPI (Recommended) - See [**_PyPi Project here_**](https://pypi.org/project/shap-bpt/) 
 
 ```bash
 pip install shap-bpt
 ```
 
-Option 2 — Install from Source
+Option 2 — Install from Source or [follow this page](https://github.com/amparore/shap_bpt?tab=readme-ov-file#installation) 
 
 ```bash
 git clone https://github.com/amparore/shap_bpt
