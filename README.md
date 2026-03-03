@@ -173,7 +173,7 @@ notebooks/datasets/
 
 ---
 
-## 4. Hardware Validation
+## 3. Hardware Validation
 
 The published results were generated and validated on the following systems:
 
@@ -184,7 +184,7 @@ The published results were generated and validated on the following systems:
 
 ---
 
-## Acknowledgments 🙏
+## 4. Acknowledgments 🙏
 We gratefully acknowledge the following contributions and resources that supported this work:
 
 ### 💠 Funding
@@ -193,23 +193,21 @@ The Joint Undertaking receives support from the European Union and the participa
 
 
 ### 🧠 Models & Pretrained Weights
-We thank the developers of the model architectures and pretrained weights used in our experiments, including:
+Our previous work (`Can I Trust my Anomaly Detection, A case study base on explainable AI`) [**_Github/anomaly_detection_trust_case_study_**](https://github.com/rashidrao-pk/anomaly_detection_trust_case_study) is acknowledged here which is used as pretrained model weights and initial codes.
 
 
 ### 🗄️ Datasets
-We acknowledge the dataset curators whose work made this project possible:
-
-- [MVTec](https://www.mvtec.com/company/research/datasets/mvtec-ad)
+We acknowledge the dataset [MVTec](https://www.mvtec.com/company/research/datasets/mvtec-ad) curators whose work made this project possible. 
 
 ### Keywords 🔍
 Anomaly detection · Variational Autoencoder · eXplainable AI · Software quality · Smart Industries
 
 
-## Citation 📃
+## 5. Citation 📃
 
 Coming soon...
 
-## Contributors
+## 6. Contributors
 
 <a href="https://github.com/rashidrao-pk/XAD/graphs/contributors">
   <img src="http://contributors.nn.ci/api?repo=rashidrao-pk/XAD" alt="" />
