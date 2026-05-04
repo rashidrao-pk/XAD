@@ -2,10 +2,16 @@
 
 > Venue: The Fifth Conference on System and Service Quality - [**_QualITA_**](https://qualitawg.github.io/), May 5, 2026, Florence, Italy. Qual-ITA (https://qualitawg.github.io/) is  happening with The International Conference on Performance Engineering ([**_ICPE26_**](http://icpe2026.spec.org/)) .
 
+> Presented: 11:40-12:00, 5th May, 2026 - [See Program here](https://qualitawg.github.io/1-Program.html)
+
 
 <img src="https://img.shields.io/badge/version-v0.0.0-rc0" alt="Version"> <a href ="https://github.com/rashidrao-pk/XAD/blob/main/LICENSE"> <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT"> </a> · <a href="https://github.com/rashidrao-pk/"> <img src="https://img.shields.io/github/contributors/rashidrao-pk/XAD" alt="GitHub contributors"></a> <img src="https://img.shields.io/github/repo-size/rashidrao-pk/XAD" alt="GitHub repo size"> · <a href="https://github.com/rashidrao-pk/"> <img src="https://img.shields.io/github/commit-activity/t/rashidrao-pk/XAD" alt="GitHub commit activity (branch)"> </a> · <a href="https://github.com/rashidrao-pk/XAD/graphs/contributors"> <img src="https://img.shields.io/github/contributors/rashidrao-pk/XAD" alt="GitHub contributors"> </a> · <a href="https://github.com/rashidrao-pk/XAD/issues?q=is%3Aissue+is%3Aclosed"> · <img src="https://img.shields.io/github/issues-closed/rashidrao-pk/XAD" alt="GitHub closed issues"> </a> · <a href="https://github.com/rashidrao-pk/XAD/issues"> <img src="https://img.shields.io/github/issues/rashidrao-pk/XAD" alt="GitHub issues"> </a> · <a href="https://github.com/rashidrao-pk/XAD/pulls?q=is%3Apr+is%3Aclosed"> <img src="https://img.shields.io/github/issues-pr-closed/rashidrao-pk/XAD" alt="GitHub closed pull requests"> </a> · <a href="https://github.com/rashidrao-pk/XAD/pulls"> <img src="https://img.shields.io/github/issues-pr/rashidrao-pk/XAD" alt="GitHub pull requests"> </a> <img src="https://img.shields.io/github/last-commit/rashidrao-pk/XAD" alt="GitHub last commit"> · <a href="https://github.com/rashidrao-pk/XAD/watchers"> <img src="https://img.shields.io/github/watchers/rashidrao-pk/XAD?style=flat" alt="GitHub watchers"> </a> · <a href="https://github.com/rashidrao-pk/XAD/forks"> <img src="https://img.shields.io/github/forks/rashidrao-pk/XAD?style=flat" alt="GitHub forks"></a> · <a href="https://github.com/rashidrao-pk/XAD/stargazers"> <img src="https://img.shields.io/github/stars/rashidrao-pk/XAD?style=flat" alt="GitHub Repo stars"> </a> · <img src="https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2Frashidrao-pk&label=Visitors&countColor=%23263759&style=flat" alt="Visitors">
 
 ---
+
+<p align="center">
+  <img src="docs/workflow.svg" width="600">
+</p>
 
 This repository provides the experimental results and reproducibility material for eXplainable Anomaly Detection (XAD) using the **_ShapBPT_** Python package.
 
@@ -17,7 +23,8 @@ ShapBPT was recently published at the
 - **_ShapBPT Codes_**: https://github.com/amparore/shap_bpt  
 - **_ShapBPT Python Package_**: https://pypi.org/project/shap-bpt
 - **_ShapBPT ArXiv_**: https://arxiv.org/abs/2602.07047
-
+- **_ShapBPT Documentation:_** https://shapbpt.readthedocs.io/en/latest/
+- **_ShapBPT Interactive User Study:_** https://huggingface.co/spaces/rashidrao/shapbpt-user-study
 ---
 
 ## Overview
@@ -165,8 +172,17 @@ Anomaly detection · Variational Autoencoder · eXplainable AI · Software quali
 
 
 ## 5. Citation 📃
+If you find this work interesting, please cite it using following Bibtex
 
-Coming soon...
+```bibtex
+@inproceedings{rashid2026shapbpt,
+  title={ShapBPT in Perspective: A Consolidated Review and an eXplainable Anomaly Detection Case Study},
+  author={Rashid, Muhammad and Amparore, Elvio and Ferrari, Enrico and Verda, Damiano},
+  booktitle={Companion of the 17th ACM/SPEC International Conference on Performance Engineering},
+  pages={178--187},
+  year={2026}
+}
+```
 
 ## 6. Contributors
 
